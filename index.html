@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Detector de Rosto</title>
-
-    
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/face_detection.js"></script>
-
-  
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-
+    <title>Controle de Ponto</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f2f2f2;
-            padding: 30px;
-            margin: 0;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        video {
-            width: 640px;
-            max-width: 100%;
-            border-radius: 10px;
-            transform: scaleX(-1);
-            background: #000;
-        }
-
-        #resultado {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        button { padding: 10px 15px; font-size: 14px; cursor: pointer; margin-right: 5px; }
+        input, select { padding: 8px; width: 250px; font-size: 14px; }
     </style>
 </head>
-
 <body>
 
-    <h1>Detector de Rosto</h1>
+    <h1>Controle de Ponto</h1>
 
-    <video id="video" autoplay playsinline></video>
+    <h3 id="data">Data: Carregando...</h3>
+    <h3 id="dia">Dia: Carregando...</h3>
+    <h3 id="hora">Hora: Carregando...</h3>
+    <h3 id="saudacao">Saudação: Carregando...</h3>
 
-    <p id="resultado">Iniciando câmera...</p>
+    <button onclick="Atualizar()">Forçar Atualizar Relógio</button>
 
+
+    <h2>1º Passo: Capturar Imagem</h2>
+    <p>Clique no botão abaixo para ligar sua webcam.</p>
+    
+    <button onclick="abrirCamera()">Ligar Câmera</button>
+
+    <div id="camera" style="display: none; margin-top: 15px;">
+        <h3>Sua câmera está ativa:</h3>
+        <video id="video" width="400" autoplay style="border: 2px dashed #666;"></video>
+        <br><br>
+        <button onclick="capturarFoto()">📸 Capturar Foto do Ponto</button>
+    </div>
+
+   
+    <canvas id="canvas" style="display: none;"></canvas>
+    
+  
+    <div id="registro"></div>
+
+    <hr>
+    <h2>2º Passo: Armazenar Dados na Memória</h2>
+    
+    <label for="nome">Nome do funcionário:</label><br>
+    <input type="text" id="nome" placeholder="Digite seu nome completo"><br><br>
+
+    <label for="tipoRegistro">Tipo de registro:</label><br>
+    <select id="tipoRegistro">
+       <option value="Entrada">Entrada</option>
+       <option value="Saída">Saída</option>
+    </select><br><br>
+    
+    <button onclick="registrarPonto()">💾 Gravar Registro de Ponto</button>
+    <p id="mensagemRegistrar"></p>
+    
+    
     <script src="script.js"></script>
-
 </body>
-
 </html>
