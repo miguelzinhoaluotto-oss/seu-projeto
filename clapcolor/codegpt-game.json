@@ -1,0 +1,24 @@
+{
+  "engine": "generic",
+  "launch": {
+    "cmd": "${PYTHON_CMD}",
+    "args": [
+      "-u",
+      "-m",
+      "http.server",
+      "8765",
+      "--bind",
+      "127.0.0.1"
+    ]
+  },
+  "log": {
+    "stdout": true
+  },
+  "sourceRoots": [
+    "."
+  ],
+  "ready": "Serving HTTP",
+  "vars": {
+    "PYTHON_CMD": "python"
+  }
+}

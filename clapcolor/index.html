@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClapColor 2.0 — Jogo de Memória com Palmas</title>
+  <link rel="stylesheet" href="css.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Clap<span>Color</span> 2.0</h1>
+
+      <div class="hud">
+        <div class="hud-item">
+          <span class="hud-label">Nível</span>
+          <span id="level">0</span>
+        </div>
+
+        <div class="hud-item">
+          <span class="hud-label">Pontos</span>
+          <span id="score">0</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <!-- Câmera + feedback -->
+      <section class="camera-panel">
+        <video id="camera" autoplay playsinline muted></video>
+        <div id="clapFlash" class="clap-flash"></div>
+        <div class="cam-badge" id="camStatus">Câmera desligada</div>
+      </section>
+
+      <!-- Painel de jogo -->
+      <section class="board-panel">
+
+        <div class="pads" id="pads">
+          <!-- preenchido via JS -->
+        </div>
+
+        <section class="instructions" aria-labelledby="instructionsTitle">
+          <h2 id="instructionsTitle">Como jogar</h2>
+          <div class="legend" id="legend"><!-- preenchido via JS --></div>
+          <p>Observe a sequência. Na sua vez, bata a quantidade exata para a cor acesa.</p>
+          <p>Bata as palmas seguidas e depois fique <strong>0,85 segundo em silêncio</strong> para confirmar. Aguarde a
+            próxima cor antes de continuar.</p>
+          <p>Palmas a mais, a menos ou tempo esgotado são erro: você repete o nível. O prazo inclui a pausa e cai de
+            <strong>6 para 3,5 segundos</strong> por cor conforme você avança.</p>
+        </section>
+
+        <div class="prompt" id="prompt" role="status">Leia as instruções e clique em Iniciar Jogo.</div>
+
+        <!-- Barras: progresso de palmas + tempo restante da etapa -->
+        <div class="bars">
+          <div class="bar-row">
+            <span class="bar-label">Palmas</span>
+            <div class="progress">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+
+          <div class="bar-row">
+            <span class="bar-label">Tempo <span id="timeValue">—</span></span>
+            <div class="progress time">
+              <div class="progress-bar time-bar" id="timeBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="startBtn" class="btn primary">Iniciar Jogo</button>
+          <button id="stopBtn" class="btn" disabled>Parar</button>
+        </div>
+
+        <!-- Medidor de som do microfone -->
+        <div class="mic-meter">
+          <label for="sensitivity">
+            Sensibilidade: <span id="sensValue">35</span>%
+          </label>
+
+          <input type="range" id="sensitivity" min="5" max="95" value="35" />
+
+          <div class="meter-track">
+            <div class="meter-fill" id="meterFill"></div>
+          </div>
+
+          <div class="meter-track threshold">
+            <div class="threshold-line" id="thresholdLine"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Use o microfone para bater palmas e a câmera para se ver.
+        Cada cor exige um número diferente de palmas.
+      </p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

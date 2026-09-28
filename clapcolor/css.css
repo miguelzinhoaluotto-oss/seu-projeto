@@ -1,0 +1,286 @@
+:root {
+  --bg: #0b1020;
+  --panel: #141b30;
+  --panel-2: #1b2440;
+  --text: #eaf0ff;
+  --muted: #93a0c0;
+  --accent: #6c8cff;
+  --red: #ff4d4d;
+  --yellow: #ffd93b;
+  --green: #4dd07a;
+  --blue: #4d9bff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 20% 0%, #1a2450 0%, var(--bg) 55%);
+  color: var(--text);
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 100vh;
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topbar h1 {
+  font-size: 28px;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.topbar h1 span { color: var(--accent); }
+
+.hud { display: flex; gap: 10px; }
+
+.hud-item {
+  background: var(--panel);
+  border: 1px solid #26304f;
+  border-radius: 12px;
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 74px;
+}
+
+.hud-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.hud-item span:last-child { font-size: 20px; font-weight: 700; }
+
+/* ---------- Stage ---------- */
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  flex: 1;
+}
+
+@media (max-width: 820px) {
+  .stage { grid-template-columns: 1fr; }
+}
+
+.camera-panel, .board-panel {
+  background: var(--panel);
+  border: 1px solid #26304f;
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
+}
+
+/* ---------- Câmera ---------- */
+.camera-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+#camera {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transform: scaleX(-1); /* efeito espelho */
+  background: #000;
+}
+
+.cam-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(0,0,0,0.6);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.clap-flash {
+  position: absolute;
+  inset: 16px;
+  border-radius: 12px;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.08s ease;
+}
+
+.clap-flash.active { opacity: 0.55; }
+
+/* ---------- Painel de jogo ---------- */
+.board-panel { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+.instructions {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--panel-2);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.instructions h2 { font-size: 16px; margin: 0 0 10px; }
+.instructions p { margin: 8px 0 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.pad > span { color: #101525; }
+.bars { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 8px; }
+.bar-label { font-size: 12px; color: var(--muted); }
+.time-bar { background: linear-gradient(90deg, #ffd93b, #4dd07a); transition: width 0.05s linear; }
+
+
+.pads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pad {
+  height: 92px;
+  border-radius: 14px;
+  border: 3px solid rgba(255,255,255,0.08);
+  opacity: 0.45;
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+  cursor: default;
+}
+
+.pad .pad-claps {
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+
+.pad.active,
+.pad.flash {
+  opacity: 1;
+  transform: scale(1.04);
+  box-shadow: 0 0 30px currentColor;
+}
+
+.pad.pad-error { animation: shake 0.4s; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.pad-red { background: var(--red); color: var(--red); }
+.pad-yellow { background: var(--yellow); color: var(--yellow); }
+.pad-green { background: var(--green); color: var(--green); }
+.pad-blue { background: var(--blue); color: var(--blue); }
+
+.prompt {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 26px;
+}
+
+.progress {
+  height: 10px;
+  background: var(--panel-2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #9b6cff);
+  transition: width 0.15s ease;
+}
+
+/* ---------- Controles ---------- */
+.controls { display: flex; gap: 10px; }
+
+.btn {
+  flex: 1;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid #2c3860;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.btn:hover:not(:disabled) { filter: brightness(1.2); }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), #9b6cff);
+  border: none;
+}
+
+/* ---------- Medidor de microfone ---------- */
+.mic-meter { display: flex; flex-direction: column; gap: 8px; }
+
+.mic-meter label { font-size: 13px; color: var(--muted); }
+
+.mic-meter input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+.meter-track {
+  height: 12px;
+  background: var(--panel-2);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.meter-track.threshold { height: 4px; margin-top: -6px; }
+
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4dd07a, #ffd93b, #ff4d4d);
+  transition: width 0.05s linear;
+}
+
+.threshold-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #fff;
+  left: 35%;
+  transition: left 0.1s ease;
+}
+
+/* ---------- Footer ---------- */
+.footer p {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 4px 0 0;
+}
