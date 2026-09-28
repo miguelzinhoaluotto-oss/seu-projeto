@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Chamado de Manutenção</title>
+</head>
+<body>
+    <h1>Sistema de Chamada de Manutenção Industrial</h1>
+    <h2>Chamados</h2>
+    <form id="formChamado">
+            <label>Equipamento</label>
+            <input type="text" id="problema" required><br><br>
+            <label>Problema</label>
+            <input type="text" id="problema" required><br><br>
+            <label>Prioridade</label>
+            <input type="text" id="prioridade" required><br><br>
+            <button type="submit">Cadastrar chamado</button>
+        </form>
+        <br>
+        <h2>Chamados Cadastrados</h2>
+    <div id="lista">Carregando...</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="jabulani.js"></script>
+
+</body>
+</html>
